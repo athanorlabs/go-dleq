@@ -40,3 +40,12 @@ type Point interface {
 	IsZero() bool
 	Equals(other Point) bool
 }
+
+// PointEncodeInto is an optional, zero-alloc encoder for Points.
+// Implementers should write the compressed encoding of the point into dst
+// and return the number of bytes written. dst must have length >=
+/* CompressedPointSize() */ // (callers size with Curve.CompressedPointSize()).
+type PointEncodeInto interface {
+	Point
+	EncodeInto(dst []byte) int
+}

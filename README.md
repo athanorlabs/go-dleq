@@ -27,3 +27,7 @@ if err != nil {
     panic(err)
 }
 ```
+
+## Benchmarks
+
+`go test ./benchmarks -bench . -benchmem`

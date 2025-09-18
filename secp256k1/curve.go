@@ -414,3 +414,15 @@ func (p *PointImpl) Equals(other Point) bool {
 
 	return ppub.IsEqual(otherPub)
 }
+
+func (p *PointImpl) EncodeInto(dst []byte) int {
+	// secp256k1 compressed is 33 bytes
+	if len(dst) < 33 {
+		return 0
+	}
+	p.inner.ToAffine()
+	pub := secp256k1.NewPublicKey(&p.inner.X, &p.inner.Y)
+
+	b := pub.SerializeCompressed()
+	return copy(dst, b)
+}

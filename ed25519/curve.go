@@ -370,3 +370,12 @@ func (p *PointImpl) Equals(other Point) bool {
 
 	return p.inner.Equal(pp.inner) == 1
 }
+
+func (p *PointImpl) EncodeInto(dst []byte) int {
+	if len(dst) < 32 {
+		return 0
+	}
+	arr := p.inner.Bytes()
+	copy(dst, arr[:])
+	return 32
+}
