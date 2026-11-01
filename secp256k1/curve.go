@@ -165,7 +165,7 @@ func (c *CurveImpl) HashToScalar(in []byte) (Scalar, error) {
 	n := new(big.Int).SetBytes(h[:])
 	n = new(big.Int).Mod(n, c.order)
 	var reduced [32]byte
-	copy(reduced[:], n.Bytes())
+	n.FillBytes(reduced[:]) // big-endian, right-aligned
 
 	s := new(secp256k1.ModNScalar)
 	wasReduced := s.SetBytes(&reduced)
